@@ -1,20 +1,25 @@
-// inactive is a command line tool that can be used to determine if a computer has not been active recently.
-//
-// The basics of how it works:
-// - looks at all files named: `/tmp/stayawake.*`, if any of the files have been modified in the last
-//   25 minutes the command exits with a status of 1.
-// - if the computer has an uptime of less than 5 minutes the command exits with a status of 1.
-// - if neither of the above are true the command exits with a status of 0.
-//
-// As a result in order to keep your computer awake you just need to touch a file that looks like /tmp/stayawake.*, in
-// my case I use my bash prompt to touch a file of that sort.
-//
-// Example usage in a crontab:
-// inactive | logger; test ${PIPESTATUS[0]} -eq 0 && /sbin/shutdown -h +5 || /sbin/shutdown -c "Shutdown cancelled"
-//
-// NOTES:
-// - We don't use this command to actually shutdown the computer because of possible permission issues and different
-//   OSes may have different ways to shut the computer down.
+/*
+inactive is a command line tool that can be used to determine if a computer has not been
+active recently.
+
+The basics of how it works:
+  - look at all files named: `/tmp/stayawake.*`, if any of the files have been modified
+    in the last 25 minutes the command exits with a status of 1.
+  - if the computer has an uptime of less than 5 minutes the command exits with a status
+    of 1.
+  - if neither of the above are true the command exits with a status of 0.
+
+As a result in order to keep your computer awake you just need to touch a file that looks
+like /tmp/stayawake.*, in my case I use my bash prompt to touch a file of that sort.
+
+Example usage in a crontab:
+  inactive | logger; test ${PIPESTATUS[0]} -eq 0 && /sbin/shutdown -h +5 || /sbin/shutdown -c "Shutdown cancelled"
+
+ NOTES:
+   - We don't use this command to actually shutdown the computer because of possible
+     permission issues and different OSes may have different ways to shut the computer
+     down.  package main
+*/
 package main
 
 import (
