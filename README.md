@@ -17,8 +17,10 @@ The basics of how it works:
 As a result in order to keep your computer awake you just need to touch a file that looks like /tmp/stayawake.\*, in
 my case I use my bash prompt to automatically touch a file of that sort.
 
-Example usage in a crontab:
+Example usage in a crontab (I have it run every 2 minutes):
+```
 inactive | logger; test ${PIPESTATUS[0]} -eq 0 && /sbin/shutdown -h +5 || /sbin/shutdown -c "Shutdown cancelled"
+```
 
 NOTES:
 - We don't use this command to actually shutdown the computer because of possible permission issues and different
