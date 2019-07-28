@@ -15,10 +15,8 @@ like /tmp/stayawake.*, in my case I use my bash prompt to touch a file of that s
 Example usage in a crontab:
   inactive | logger; test ${PIPESTATUS[0]} -eq 0 && /sbin/shutdown -h +5 || /sbin/shutdown -c "Shutdown cancelled"
 
- NOTES:
-   - We don't use this command to actually shutdown the computer because of possible
-     permission issues and different OSes may have different ways to shut the computer
-     down.  package main
+Note: We don't use this command to actually shutdown the computer because of possible
+permission issues and different OSes may have different ways to shut the computer down.
 */
 package main
 
