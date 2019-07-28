@@ -15,7 +15,7 @@ The basics of how it works:
 - if neither of the above are true the command exits with a status of 0.
 
 As a result in order to keep your computer awake you just need to touch a file that looks like /tmp/stayawake.\*, in
-my case I use my bash prompt to automatically touch a file of that sort.
+my case I use my [bash prompt to automatically touch a file](https://github.com/nthnca/dotbash/blob/master/bash/stayawake.sh) of that sort. 
 
 Example usage in a crontab (I have it run every 2 minutes):
 ```
