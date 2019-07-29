@@ -19,10 +19,10 @@ As a result in order to keep your computer awake you just need to touch a file t
 like `/tmp/stayawake.\*`, in my case I use my [bash prompt to automatically touch a
 file](https://github.com/nthnca/dotbash/blob/master/bash/stayawake.sh) of that sort.
 
-Example usage in a crontab (I have it run every 2 minutes):
+Example usage in a crontab (I have it run every 3 minutes):
 ```
-inactive | logger; test ${PIPESTATUS[0]} -eq 0 && \
-    /sbin/shutdown -h +5 || /sbin/shutdown -c "Shutdown cancelled"
+*/3 * * * * /root/inactive && \
+    ( test -f /run/nologin || /sbin/shutdown -h +5 ) || /sbin/shutdown -c
 ```
 
 To install you can simply run `go get github.com/nthnca/inactive`.
@@ -30,3 +30,6 @@ To install you can simply run `go get github.com/nthnca/inactive`.
 NOTES:
 - This command doesn't actually shut down the computer because of possible permission
   issues and different OSes may have different ways to shut the computer down.
+- The check for /run/nologin is to see if a shutdown has already been scheduled, if so
+  we don't want to schedule another shutdown since it will cancel the first shutdown
+  ... basically resulting in a denial of service for shutting down... oops.  :-)

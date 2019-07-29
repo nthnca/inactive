@@ -6,6 +6,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"log/syslog"
 	"os"
 	"strconv"
 	"strings"
@@ -21,35 +23,58 @@ const (
 	tmpFilePrefix        = "stayawake."
 )
 
+var (
+	logWriter *syslog.Writer
+)
+
+func fatal(str string) {
+	err := logWriter.Info(str)
+	if err != nil {
+		log.Fatalf("failed to write to logger %s", err)
+	}
+	os.Exit(1)
+}
+
+func info(str string) {
+	err := logWriter.Info(str)
+	if err != nil {
+		log.Fatalf("failed to write to logger %s", err)
+	}
+}
+
 func main() {
+	var err error
+
+	logWriter, err = syslog.New(syslog.LOG_INFO, "AmIStilActive")
+	if err != nil {
+		log.Fatalf("failed to open logger %s", err)
+	}
+
 	uptime := getUptime()
-	if uptime < minUptime { // time.Minute*5 {
-		fmt.Println("System active. Uptime:", uptime)
-		os.Exit(1)
+	if uptime < minUptime {
+		fatal(fmt.Sprintf("System active. Uptime: %s", uptime))
 	}
 
 	lastActivity := getLastActivityTime()
 	if lastActivity < minActivityThreshold {
-		fmt.Println("System active. No activity seen for:", lastActivity)
-		os.Exit(1)
+		fatal(fmt.Sprintf("System active. No activity seen for: %s",
+			lastActivity))
 	}
 
-	fmt.Printf("System INactive. Uptime: %s, last activity seen %s ago.\n",
-		uptime, lastActivity)
+	info(fmt.Sprintf("System INactive. Uptime: %s, last activity seen %s ago.\n",
+		uptime, lastActivity))
 }
 
 func getUptime() time.Duration {
 	uptime, err := os.Open("/proc/uptime")
 	if err != nil {
-		fmt.Println("Can't open /proc/uptime: ", err)
-		os.Exit(1)
+		fatal(fmt.Sprintf("Can't open /proc/uptime: %s", err))
 	}
 
 	b := make([]byte, 50)
 	n, err := uptime.Read(b)
 	if err != nil {
-		fmt.Println("Can't read /proc/uptime: ", err)
-		os.Exit(1)
+		fatal(fmt.Sprintf("Can't read /proc/uptime: %s", err))
 	}
 
 	tmp := string(b[:n])
@@ -57,8 +82,8 @@ func getUptime() time.Duration {
 	chars := tmp[:split]
 	seconds, err := strconv.Atoi(chars)
 	if err != nil {
-		fmt.Println("/proc/uptime can't be converted to an integer: ", tmp)
-		os.Exit(1)
+		fatal(fmt.Sprintf("/proc/uptime can't be converted to an integer: %s",
+			tmp))
 	}
 
 	return time.Duration(seconds) * time.Second
@@ -67,14 +92,12 @@ func getUptime() time.Duration {
 func getLastActivityTime() time.Duration {
 	f, err := os.Open(tmpFilePath)
 	if err != nil {
-		fmt.Println("Can't open: ", tmpFilePath, err)
-		os.Exit(1)
+		fatal(fmt.Sprintf("Can't open: %s %s", tmpFilePath, err))
 	}
 
 	fi, err := f.Readdir(2000)
 	if err != nil {
-		fmt.Println("Can't readdir: ", tmpFilePath, err)
-		os.Exit(1)
+		fatal(fmt.Sprintf("Can't readdir: %s %s", tmpFilePath, err))
 	}
 
 	var lastActive time.Time
