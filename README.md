@@ -33,3 +33,5 @@ NOTES:
 - The check for /run/nologin is to see if a shutdown has already been scheduled, if so
   we don't want to schedule another shutdown since it will cancel the first shutdown
   ... basically resulting in a denial of service for shutting down... oops.  :-)
+- On my system to get the shutdown -h +5 command to work I had to run `sudo apt install
+  --reinstall dbus`
