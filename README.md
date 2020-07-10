@@ -4,6 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/nthnca/inactive?style=flat-square)](https://goreportcard.com/report/github.com/nthnca/inactive)
 [![Latest Version](https://img.shields.io/github/release/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/releases)
 [![Latest Version](https://img.shields.io/github/license/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/blob/master/LICENSE)
+[![Go](https://github.com/nthnca/inactive/workflows/Go/badge.svg)](https://github.com/nthnca/inactive/actions?query=workflow%3AGo)
 
 Command line tool that can be used to determine if a computer has not been active
 recently. I use it to make sure my machines don't get left on when I am not using them.
