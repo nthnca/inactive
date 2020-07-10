@@ -3,7 +3,7 @@
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/nthnca/inactive)
 [![Go Report Card](https://goreportcard.com/badge/github.com/nthnca/inactive?style=flat-square)](https://goreportcard.com/report/github.com/nthnca/inactive)
 [![Latest Version](https://img.shields.io/github/release/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/releases)
-[![Latest Version](https://img.shields.io/github/license/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/blob/master/LICENSE)
+[![Latest Version](https://img.shields.io/github/license/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/blob/main/LICENSE)
 [![Go](https://github.com/nthnca/inactive/workflows/Go/badge.svg)](https://github.com/nthnca/inactive/actions?query=workflow%3AGo)
 
 Command line tool that can be used to determine if a computer has not been active
