@@ -1,6 +1,6 @@
 # Command `inactive`
 
-[![Go Doc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](http://godoc.org/github.com/nthnca/inactive)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/nthnca/inactive)
 [![Go Report Card](https://goreportcard.com/badge/github.com/nthnca/inactive?style=flat-square)](https://goreportcard.com/report/github.com/nthnca/inactive)
 [![Latest Version](https://img.shields.io/github/release/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/releases)
 [![Latest Version](https://img.shields.io/github/license/nthnca/inactive.svg?style=flat-square)](https://github.com/nthnca/inactive/blob/master/LICENSE)
